@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AbstractIOFixture.cs" />
     <Compile Include="CoordinateBufferTest.cs" />
+    <Compile Include="Issue174.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomGeometryHelper.cs" />
     <Compile Include="SqlGeographyFixture.cs" />
