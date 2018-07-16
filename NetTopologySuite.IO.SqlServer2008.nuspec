@@ -8,6 +8,7 @@
 		<owners>NetTopologySuite - Team</owners>
 		<licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
 		<projectUrl>https://github.com/NetTopologySuite/NetTopologySuite</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/NetTopologySuite/GeoAPI/master/icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>
       This package contains the SqlServer2008 IO library.
@@ -26,7 +27,8 @@
 	</metadata>
 	<files>
 		<file src="NetTopologySuite.Common.props" target="src" />
-		<file src="NetTopologySuite.IO\NetTopologySuite.IO.SqlServer2008\**" exclude="NetTopologySuite.IO\NetTopologySuite.IO.SqlServer2008\obj\**" target="src\NetTopologySuite.IO\NetTopologySuite.IO.SqlServer2008" />
+		<file src="SharedAssemblyVersion.cs" target="src" />
+		<file src="NetTopologySuite.IO.SqlServer2008\**" exclude="NetTopologySuite.IO.SqlServer2008\obj\**" target="src\NetTopologySuite.IO.SqlServer2008" />
 
 		<file src="Release\AnyCPU\**\NetTopologySuite.IO.SqlServer2008.deps.json" target="lib" />
 		<file src="Release\AnyCPU\**\NetTopologySuite.IO.SqlServer2008.dll" target="lib" />

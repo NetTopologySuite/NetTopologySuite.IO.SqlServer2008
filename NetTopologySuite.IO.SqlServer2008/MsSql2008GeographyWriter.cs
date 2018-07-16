@@ -26,11 +26,19 @@ using Microsoft.SqlServer.Types;
 
 namespace NetTopologySuite.IO
 {
+    /// <summary>
+    /// Class to convert <see cref="IGeometry"/> and write to <see cref="SqlGeography"/>
+    /// </summary>
     public class MsSql2008GeographyWriter : IBinaryGeometryWriter, IGeometryWriter<SqlGeography>
 	{
-		//private readonly SqlGeographyBuilder _builder = new SqlGeographyBuilder();
+        //private readonly SqlGeographyBuilder _builder = new SqlGeographyBuilder();
 
-	    public SqlGeography WriteGeography(IGeometry geometry)
+        /// <summary>
+        /// Function to convert a <see cref="IGeometry"/> into a <see cref="SqlGeography"/>
+        /// </summary>
+        /// <param name="geometry">The geometry</param>
+        /// <returns>A <see cref="SqlGeography"/></returns>
+        public SqlGeography WriteGeography(IGeometry geometry)
 	    {
 	        var builder = new SqlGeographyBuilder();
             
@@ -44,6 +52,7 @@ namespace NetTopologySuite.IO
             return WriteGeography(geometry);
         }
 
+        /// <inheritdoc cref="IGeometryWriter{TSink}.Write(IGeometry)"/>
         public byte[] Write(IGeometry geometry)
         {
             var sqlGeography = WriteGeography(geometry);
@@ -57,6 +66,7 @@ namespace NetTopologySuite.IO
             }
         }
 
+	    /// <inheritdoc cref="IGeometryWriter{TSink}.Write(IGeometry, Stream)"/>
 	    public void Write(IGeometry geometry, Stream stream)
 	    {
             var sqlGeography = WriteGeography(geometry);
@@ -218,14 +228,16 @@ namespace NetTopologySuite.IO
 		}
          */
 
-        #region Implementation of IGeometryIOBase
+	    #region Implementation of IGeometryIOSettings
 
+	    /// <inheritdoc cref="IGeometryIOSettings.HandleSRID"/>>
         public bool HandleSRID
         {
             get { return true; }
             set { }
         }
 
+        /// <inheritdoc cref="IGeometryIOSettings.AllowedOrdinates"/>>
         public Ordinates AllowedOrdinates
         {
             get { return Ordinates.XYZM; }
@@ -233,6 +245,7 @@ namespace NetTopologySuite.IO
 
         private Ordinates _handleOrdinates;
 
+        /// <inheritdoc cref="IGeometryIOSettings.HandleOrdinates"/>>
         public Ordinates HandleOrdinates
         {
             get { return _handleOrdinates; }
@@ -247,6 +260,7 @@ namespace NetTopologySuite.IO
 
         #region Implementation of IBinaryGeometryWriter
 
+	    /// <inheritdoc cref="IBinaryGeometryWriter.ByteOrder"/>>
         public ByteOrder ByteOrder
         {
             get { return ByteOrder.LittleEndian; }

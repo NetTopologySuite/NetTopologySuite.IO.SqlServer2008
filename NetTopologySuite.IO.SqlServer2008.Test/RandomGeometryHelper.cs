@@ -107,7 +107,7 @@ namespace NetTopologySuite.IO.SqlServer2008.Test
         {
             get
             {
-                return Factory.CreateMultiPoint(RandomCoordinates);
+                return Factory.CreateMultiPointFromCoords(RandomCoordinates);
             }
         }
 

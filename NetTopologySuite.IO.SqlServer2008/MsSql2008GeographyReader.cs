@@ -24,11 +24,18 @@ using Microsoft.SqlServer.Types;
 
 namespace NetTopologySuite.IO
 {
-	public class MsSql2008GeographyReader : IBinaryGeometryReader, IGeometryReader<SqlGeography>
+    /// <summary>
+    /// Class to read <see cref="SqlGeography"/> and convert to <see cref="IGeometry"/>
+    /// </summary>
+    public class MsSql2008GeographyReader : IBinaryGeometryReader, IGeometryReader<SqlGeography>
 	{
+        /// <summary>
+        /// (Obsolete) Gets or sets a factory to use when building the result geometries.
+        /// </summary>
 	    [Obsolete]
         public IGeometryFactory Factory { get; set; }
 
+	    /// <inheritdoc cref="IGeometryReader{TSource}.Read(TSource)"/>>
 	    public IGeometry Read(byte[] bytes)
 		{
 			using (var stream = new MemoryStream(bytes))
@@ -37,6 +44,7 @@ namespace NetTopologySuite.IO
 			}
 		}
 
+	    /// <inheritdoc cref="IGeometryReader{TSource}.Read(Stream)"/>>
         public IGeometry Read(Stream stream)
         {
             using (var reader = new BinaryReader(stream))
@@ -47,11 +55,10 @@ namespace NetTopologySuite.IO
             }
         }
 
-	    /// <summary>
-	    /// Gets or sets whether invalid linear rings should be fixed
-	    /// </summary>
+        /// <inheritdoc cref="IGeometryReader{TSource}.RepairRings"/>>
 	    public bool RepairRings { get; set; }
 
+	    /// <inheritdoc cref="IGeometryReader{TSource}.Read(TSource)"/>>
 	    public IGeometry Read(SqlGeography geometry)
 		{
             var builder = new NtsGeographySink(GeoAPI.GeometryServiceProvider.Instance);
@@ -59,20 +66,24 @@ namespace NetTopologySuite.IO
 			return builder.ConstructedGeometry;
 		}
 
-	    #region Implementation of IGeometryIOSettings
+        #region Implementation of IGeometryIOSettings
 
-	    public bool HandleSRID
+	    /// <inheritdoc cref="IGeometryIOSettings.HandleSRID"/>
+        public bool HandleSRID
 	    {
             get { return true; }
 	        set { }
 	    }
 
+	    /// <inheritdoc cref="IGeometryIOSettings.AllowedOrdinates"/>
 	    public Ordinates AllowedOrdinates
 	    {
-            get { return Factory.CoordinateSequenceFactory.Ordinates & Ordinates.XYZM; }
+            get { return GeoAPI.GeometryServiceProvider.Instance.DefaultCoordinateSequenceFactory.Ordinates & Ordinates.XYZM; }
 	    }
 
 	    private Ordinates _handleOrdinates;
+
+	    /// <inheritdoc cref="IGeometryIOSettings.HandleOrdinates"/>
 	    public Ordinates HandleOrdinates
 	    {
 	        get { return _handleOrdinates; }

@@ -24,10 +24,27 @@ using GeoAPI.Geometries;
 
 namespace NetTopologySuite.IO
 {
+    /// <summary>
+    /// Class to convert <see cref="IGeometry"/> and write to <see cref="SqlGeometry"/>
+    /// </summary>
     public class MsSql2008GeometryWriter : IBinaryGeometryWriter, IGeometryWriter<SqlGeometry>
     {
         //private readonly SqlGeometryBuilder _builder = new SqlGeometryBuilder();
 
+        /// <summary>
+        /// Function to convert a <see cref="IGeometry"/> into a <see cref="SqlGeometry"/>
+        /// </summary>
+        /// <param name="geometry">The geometry</param>
+        /// <returns>A <see cref="SqlGeometry"/></returns>
+        public SqlGeometry WriteGeometry(IGeometry geometry)
+        {
+            var builder = new SqlGeometryBuilder();
+            builder.SetSrid(geometry.SRID);
+            AddGeometry(builder, geometry);
+            return builder.ConstructedGeometry;
+        }
+
+        /// <inheritdoc cref="IGeometryWriter{TSink}.Write(IGeometry)"/>
         public byte[] Write(IGeometry geometry)
         {
             using (var ms = new MemoryStream())
@@ -37,6 +54,7 @@ namespace NetTopologySuite.IO
             }
         }
 
+        /// <inheritdoc cref="IGeometryWriter{TSink}.Write(IGeometry, Stream)"/>
         public void Write(IGeometry geometry, Stream stream)
         {
             var sqlGeometry = WriteGeometry(geometry);
@@ -44,21 +62,11 @@ namespace NetTopologySuite.IO
                 sqlGeometry.Write(writer);
         }
 
+        /// <inheritdoc cref="IGeometryWriter{TSink}.Write(IGeometry)"/>
         SqlGeometry IGeometryWriter<SqlGeometry>.Write(IGeometry geometry)
         {
             return WriteGeometry(geometry);
         }
-
-        public SqlGeometry WriteGeometry(IGeometry geometry)
-        {
-            var builder = new SqlGeometryBuilder();
-            builder.SetSrid(geometry.SRID);
-            AddGeometry(builder, geometry);
-            return builder.ConstructedGeometry;
-        }
-
-
-
 
         private void AddGeometry(SqlGeometryBuilder builder, IGeometry geometry)
         {
@@ -196,20 +204,24 @@ namespace NetTopologySuite.IO
         }
          */
 
-        #region Implementation of IGeometryIOBase
+        #region Implementation of IGeometryIOSettings
 
+        /// <inheritdoc cref="IGeometryIOSettings.HandleSRID"/>>
         public bool HandleSRID
         {
             get { return true; }
             set { }
         }
 
+        /// <inheritdoc cref="IGeometryIOSettings.AllowedOrdinates"/>>
         public Ordinates AllowedOrdinates
         {
             get { return Ordinates.XYZM; }
         }
 
         private Ordinates _handleOrdinates;
+
+        /// <inheritdoc cref="IGeometryIOSettings.HandleOrdinates"/>>
         public Ordinates HandleOrdinates
         {
             get { return _handleOrdinates; }
@@ -224,6 +236,7 @@ namespace NetTopologySuite.IO
 
         #region Implementation of IBinaryGeometryWriter
 
+        /// <inheritdoc cref="IBinaryGeometryWriter.ByteOrder"/>>
         public ByteOrder ByteOrder
         {
             get { return ByteOrder.LittleEndian; }

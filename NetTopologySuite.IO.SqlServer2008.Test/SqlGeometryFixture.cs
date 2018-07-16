@@ -32,7 +32,7 @@ namespace NetTopologySuite.IO.SqlServer2008.Test
 
         protected override IGeometry Read(byte[] b)
         {
-            var geoReader = new MsSql2008GeometryReader {Factory = RandomGeometryHelper.Factory};
+            var geoReader = new MsSql2008GeometryReader() /*{Factory = RandomGeometryHelper.Factory}*/ ;
             return geoReader.Read(b);
         }
 
