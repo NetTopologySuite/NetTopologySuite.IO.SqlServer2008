@@ -21,6 +21,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SqlServer.Types" Version="10.50.1600.1" />
-    <PackageReference Include="GeoAPI" Version="$(GeoAPIPackageReferenceVersion)" />
+    <PackageReference Include="GeoAPI.Core" Version="$(GeoAPIPackageReferenceVersion)" />
   </ItemGroup>
 </Project>
