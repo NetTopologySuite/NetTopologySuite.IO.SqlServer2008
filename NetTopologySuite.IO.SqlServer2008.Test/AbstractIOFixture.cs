@@ -47,7 +47,7 @@ namespace NetTopologySuite.IO.SqlServer2008.Test
 
         private void CheckAppConfigPresent()
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NetTopologySuite.IO.Tests.dll.config");
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NetTopologySuite.IO.SqlServer2008.Test.dll.config");
             if (!File.Exists(path))
                 CreateAppConfig();
             UpdateAppConfig();

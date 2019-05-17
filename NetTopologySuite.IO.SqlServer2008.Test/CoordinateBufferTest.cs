@@ -104,6 +104,7 @@ namespace NetTopologySuite.IO.SqlServer2008.Test
         [TestAttribute]
         public void TestAddMarkers()
         {
+            GeoAPI.NetTopologySuiteBootstrapper.Bootstrap();
             var cb = new CoordinateBuffer(10);
             for (var i = 0; i < 10; i++)
             {
