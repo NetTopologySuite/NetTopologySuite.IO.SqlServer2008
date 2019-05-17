@@ -125,7 +125,7 @@ namespace NetTopologySuite.IO
 
             AddCoordinates(builder, TryReverseRing((ILinearRing)polygon.ExteriorRing, true).CoordinateSequence);
 
-            Array.ForEach(polygon.InteriorRings, ring => AddCoordinates(builder, TryReverseRing((ILinearRing)polygon.ExteriorRing, false).CoordinateSequence));
+            Array.ForEach(polygon.InteriorRings, ring => AddCoordinates(builder, TryReverseRing((ILinearRing)ring, false).CoordinateSequence));
 			builder.EndGeography();
 		}
 
