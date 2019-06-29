@@ -6,7 +6,7 @@
 		<title>NTS - Topology Suite - IO Library for SqlServer 2008</title>
 		<authors>NetTopologySuite - Team</authors>
 		<owners>NetTopologySuite - Team</owners>
-		<licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
+		<license type="expression">LGPL-2.1-or-later</license>
 		<projectUrl>https://github.com/NetTopologySuite/NetTopologySuite</projectUrl>
 		<iconUrl>https://raw.githubusercontent.com/NetTopologySuite/GeoAPI/master/icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -21,7 +21,7 @@
 			<frameworkAssembly assemblyName="System.Core" />
 		</frameworkAssemblies>
 		<dependencies>
-			<dependency id="GeoAPI.Core" version="1.7.5" />
+			<dependency id="GeoAPI.Core" version="[1.7.5, 2.0.0-A)" />
 			<dependency id="Microsoft.SqlServer.Types" version="10.50.1600.1" />
 		</dependencies>
 	</metadata>
